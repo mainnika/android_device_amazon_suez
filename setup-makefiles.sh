@@ -16,7 +16,7 @@
 set -e
 
 VENDOR=amazon
-DEVICE_COMMON=mt8173-common
+DEVICE_COMMON=suez
 
 # Load extractutils and do some sanity checks
 MY_DIR="${BASH_SOURCE%/*}"
@@ -38,7 +38,7 @@ setup_vendor "$DEVICE_COMMON" "$VENDOR" "$LINEAGE_ROOT" true
 write_headers "suez"
 
 # The standard blobs
-write_makefiles "$MY_DIR"/proprietary-files.txt
+write_makefiles "$MY_DIR"/proprietary-files.txt true
 
 # Done
 write_footers

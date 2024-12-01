@@ -22,7 +22,6 @@ bin/guiext-server
 bin/kisd
 bin/lsm303md
 bin/mc6420d
-bin/mc6420d
 bin/memsicd
 bin/memsicd3416x
 bin/msensord
@@ -38,6 +37,9 @@ bin/wifitesttool
 bin/wmt_loader
 bin/wpa_supplicant
 etc/.tp/.ht120.mtc
+etc/.tp/thermal.conf
+etc/.tp/thermal.off.conf
+etc/.tp/thermal.policy.conf
 etc/audio_param/AudioParamOptions.xml
 etc/audio_policy.conf
 etc/firmware/mt6630_ant_m1.cfg
@@ -131,6 +133,7 @@ lib/libcamalgo.so
 lib/libcamdrv.so
 lib/libcameracustom.so
 lib/libccci_util.so
+lib/libcjson.so
 lib/libcustom_nvram.so
 lib/libdirect-coredump.so
 lib/libdngop.so
@@ -165,7 +168,6 @@ lib/libmp4enc_sa.ca7.so
 lib/libmp4enc_xa.ca7.so
 lib/libmrdump.so
 lib/libmtcloader.so
-lib/libmtk_drvb.so
 lib/libmtk_drvb.so
 lib/libmtk_mmutils.so
 lib/libmtkcamera_client.so
@@ -388,3 +390,16 @@ vendor/lib64/libsrv_um.so
 vendor/lib64/libusc.so
 vendor/lib64/mediadrm/libdrmclearkeyplugin.so
 vendor/lib64/mediadrm/libmockdrmcryptoplugin.so
+vendor/smartvolume/suez/anlg_dock_headset.csv
+vendor/smartvolume/suez/aux_digital.csv
+vendor/smartvolume/suez/bt_a2dp_headphones.csv
+vendor/smartvolume/suez/bt_a2dp_speaker.csv
+vendor/smartvolume/suez/bt_a2dp.csv
+vendor/smartvolume/suez/bt_sco_carkit.csv
+vendor/smartvolume/suez/bt_sco_headset.csv
+vendor/smartvolume/suez/bt_sco.csv
+vendor/smartvolume/suez/default.csv
+vendor/smartvolume/suez/dgtl_dock_headeset.csv
+vendor/smartvolume/suez/speaker.csv
+vendor/smartvolume/suez/wired_headphone.csv
+vendor/smartvolume/suez/wired_headset.csv

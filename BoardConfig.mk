@@ -1,6 +1,11 @@
-DEVICE_COMMON := device/amazon/mt8173-common
-KERNEL_COMMON := kernel/amazon/mt8173-common
-VENDOR_COMMON := vendor/amazon/mt8173-common
+# Kernel
+TARGET_KERNEL_CONFIG := suez_defconfig
+BOARD_KERNEL_CMDLINE := bootopt=64S3,32N2,64N2
+BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
+
+DEVICE_COMMON := device/amazon/suez
+KERNEL_COMMON := kernel/amazon/suez
+VENDOR_COMMON := vendor/amazon/suez
 
 # headers
 TARGET_SPECIFIC_HEADER_PATH := $(DEVICE_COMMON)/include
@@ -19,15 +24,15 @@ TARGET_ARCH := arm64
 TARGET_ARCH_VARIANT := armv8-a
 TARGET_CPU_ABI := arm64-v8a
 TARGET_CPU_VARIANT := generic
-
 TARGET_2ND_ARCH := arm
 TARGET_2ND_ARCH_VARIANT := armv7-a-neon
 TARGET_2ND_CPU_ABI := armeabi-v7a
 TARGET_2ND_CPU_ABI2 := armeabi
 TARGET_2ND_CPU_VARIANT := cortex-a15
+TARGET_CPU_SMP := true
 
-TARGET_CPU_ABI_LIST := arm64-v8a,armeabi-v7a,armeabi
-TARGET_CPU_ABI_LIST_64_BIT := arm64-v8a
+#TARGET_CPU_ABI_LIST := arm64-v8a,armeabi-v7a,armeabi
+#TARGET_CPU_ABI_LIST_64_BIT := arm64-v8a
 
 # Kernel Config
 BOARD_KERNEL_BASE := 0x40080000
@@ -41,8 +46,8 @@ BOARD_MKBOOTIMG_ARGS := --kernel_offset $(BOARD_KERNEL_OFFSET) --ramdisk_offset 
 TARGET_KERNEL_ARCH := arm64
 
 BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
-TARGET_KERNEL_SOURCE := $(KERNEL_COMMON)
-KERNEL_TOOLCHAIN_PREFIX := $(ANDROID_BUILD_TOP)/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/bin/aarch64-linux-android-
+# TARGET_KERNEL_SOURCE := $(KERNEL_COMMON)
+# KERNEL_TOOLCHAIN_PREFIX := $(ANDROID_BUILD_TOP)/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/bin/aarch64-linux-android-
 
 BOARD_HAS_MTK_HARDWARE := true
 MTK_HARDWARE := true
@@ -103,24 +108,10 @@ BLOCK_BASED_OTA := false
 # Vold
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/mt_usb/musb-hdrc.0.auto/gadget/lun%d/file
 
-# TWRP
-ifneq (,$(strip $(wildcard bootable/recovery-twrp/twrp.cpp)))
-RECOVERY_VARIANT := twrp
-endif
-DEVICE_RESOLUTION := 600x1024
-TW_EXCLUDE_MTP := false
-RECOVERY_SDCARD_ON_DATA := true
-TW_BRIGHTNESS_PATH := /sys/devices/platform/leds-mt65xx/leds/lcd-backlight/brightness
-TARGET_RECOVERY_LCD_BACKLIGHT_PATH := /sys/devices/platform/leds-mt65xx/leds/lcd-backlight/brightness
-RECOVERY_GRAPHICS_USE_LINELENGTH := true
-RECOVERY_FSTAB_VERSION := 2
-TW_THEME := landscape_mdpi
-#TWRP_EVENT_LOGGING := true
-RECOVERY_TOUCHSCREEN_SWAP_XY := true
-#RECOVERY_GRAPHICS_USE_LINELENGTH := true
-#RECOVERY_TOUCHSCREEN_FLIP_Y := true 
-RECOVERY_TOUCHSCREEN_FLIP_X := true
-BOARD_HAS_FLIPPED_SCREEN := true
+# Assert
+TARGET_OTA_ASSERT_DEVICE := suez
 
-# Disable API check
-WITHOUT_CHECK_API := true
+TARGET_BOOTLOADER_BOARD_NAME := suez
+
+# TWRP
+DEVICE_RESOLUTION := 1200x1920

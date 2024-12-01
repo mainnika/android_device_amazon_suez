@@ -1,5 +1,6 @@
-DEVICE_COMMON := device/amazon/mt8173-common
-VENDOR_COMMON := vendor/amazon/mt8173-common
+DEVICE_COMMON := device/amazon/suez
+VENDOR_COMMON := vendor/amazon/suez
+KERNEL_COMMON := kernel/amazon/suez
 
 # Device overlay
 DEVICE_PACKAGE_OVERLAYS += $(DEVICE_COMMON)/overlay
@@ -11,8 +12,18 @@ PRODUCT_COPY_FILES += \
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
 # Device uses high-density artwork where available
-PRODUCT_AAPT_CONFIG := normal mdpi
-PRODUCT_AAPT_PREF_CONFIG := mdpi
+PRODUCT_AAPT_CONFIG := normal large xlarge hdpi xhdpi xxhdpi
+PRODUCT_AAPT_PREF_CONFIG := xhdpi
+
+# BootAnimation
+TARGET_SCREEN_WIDTH := 1200
+TARGET_SCREEN_HEIGHT := 1920
+
+TARGET_PREBUILT_KERNEL := $(KERNEL_COMMON)/out/arch/arm64/boot/Image.gz-dtb
+LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_KERNEL):kernel
 
 # Permissions
 PRODUCT_COPY_FILES += \
@@ -43,6 +54,20 @@ PRODUCT_COPY_FILES += \
     $(DEVICE_COMMON)/configs/media_codecs.xml:system/etc/media_codecs.xml \
     $(DEVICE_COMMON)/configs/media_profiles.xml:system/etc/media_profiles.xml \
     $(DEVICE_COMMON)/configs/mtk_omx_core.cfg:system/etc/mtk_omx_core.cfg
+
+# Mediatek build
+MTK_PROJECT_NAME := $(DEVICE)/ProjectConfig.mk
+
+# Init
+PRODUCT_PACKAGES += \
+    fix-symlinks.sh \
+    fstab.mt8173 \
+    init.mt8173.rc \
+    init.mt8173.usb.rc \
+    ueventd.mt8173.rc \
+    rgx.fw \
+    md32_d.bin \
+    md32_p.bin
 
 # Audio
 PRODUCT_PACKAGES += \
@@ -78,7 +103,14 @@ PRODUCT_PACKAGES += \
 # network
 PRODUCT_PACKAGES += \
     netd
-    
+
+# Wifi
+PRODUCT_PACKAGES += \
+    hostapd \
+    hostapd_cli \
+    lib_driver_cmd_mt66xx \
+    wpa_supplicant
+
 # IPv6 tethering
 PRODUCT_PACKAGES += \
     ebtables \
@@ -89,10 +121,7 @@ WITH_EXFAT := true
 PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
 
 # call dalvik heap config
-$(call inherit-product, frameworks/native/build/tablet-7in-hdpi-1024-dalvik-heap.mk)
-
-# call hwui memory config
-$(call inherit-product-if-exists, frameworks/native/build/phone-xxhdpi-2048-hwui-memory.mk)
+$(call inherit-product, frameworks/native/build/tablet-10in-xhdpi-2048-dalvik-heap.mk)
 
 # Get non-open-source specific aspects
-$(call inherit-product-if-exists, $(VENDOR_COMMON)/mt8173-common-vendor.mk)
+$(call inherit-product-if-exists, $(VENDOR_COMMON)/suez-vendor.mk)
