@@ -35,4 +35,3 @@ PRODUCT_PACKAGES += \
     Launcher3
 
 $(call inherit-product, device/amazon/suez/device.mk)
-$(call inherit-product-if-exists, vendor/amazon/suez/suez-vendor.mk)
